@@ -26,9 +26,9 @@ int main() {
     ifstream infile("./input");
     while (getline(infile, line)) {
         bool already_first = false;
-        int  last_num;
+        int  last_num = 0;
 
-        for (int i = 0; i < line.size(); i++) {
+        for (int i = 0; i < (int)line.size(); i++) {
             if (std::isdigit(line[i])) {
                 if (!already_first) {
                     sum           += 10 * (line[i] - '0');

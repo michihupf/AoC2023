@@ -19,7 +19,7 @@ int main() {
     unsigned int sum    = 0;
     unsigned int amount = 0;
 
-    std::map<std::string, int> min_amount = {
+    std::map<std::string, unsigned int> min_amount = {
         {"blue",  0},
         {"green", 0},
         {"red",   0}

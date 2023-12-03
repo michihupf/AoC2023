@@ -9,7 +9,7 @@ using namespace std;
 enum State { NONE, GAME_ID, NUMBER, COLOR };
 
 int main() {
-    const std::map<std::string, int> max_amount = {
+    const std::map<std::string, unsigned int> max_amount = {
         {"blue",  14},
         {"green", 13},
         {"red",   12}

@@ -13,7 +13,7 @@ int main() {
     ifstream infile("./input");
     while (getline(infile, line)) {
         // search first digit
-        for (int i = 0; i < line.size(); i++) {
+        for (int i = 0; i < (int)line.size(); i++) {
             if (std::isdigit(line[i])) {
                 sum += 10 * (line[i] - '0');
                 break;
