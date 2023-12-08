@@ -1,20 +1,19 @@
 #include <fstream>
 #include <iostream>
 
-using namespace std;
 
 int main() {
-    ifstream infile("./input");
+    std::ifstream infile("./input");
 
     int sum = 0;
     // CODE GOES HERE
     
     infile.close();
 
-    cout << "MESSAGE" << sum << endl;
-    cout << "Writing result to ./output" << endl;
+    std::cout << "MESSAGE" << sum << std::endl;
+    std::cout << "Writing result to ./output" << std::endl;
 
-    ofstream outfile("./output");
-    outfile << sum << endl;
+    std::ofstream outfile("./output");
+    outfile << sum << std::endl;
     outfile.close();
 }
