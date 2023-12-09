@@ -3,19 +3,17 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-
 inline bool is_symbol(char c) {
     return c != '.' && c != '\n' && !isdigit(c);
 }
 
 int main() {
-    ifstream infile("./input");
+    std::ifstream infile("./input");
 
     int    sum = 0;
-    string line;
-    string before = "";
-    while (getline(infile, line)) {
+    std::string line;
+    std::string before = "";
+    while (std::getline(infile, line)) {
         int num   = 0;
         int start = 0;
         for (unsigned int i = 0; i < line.size(); i++) {
@@ -62,7 +60,7 @@ int main() {
             // check for vertical and diagonal smybol
             // check the line above
             bool done = false;
-            for (int j = max(left, 0); j < min(right, (int)before.size()); j++) {
+            for (int j = std::max(left, 0); j < std::min(right, (int)before.size()); j++) {
                 if (is_symbol(before[j])) {
                     sum  += num;
                     num   = 0;
@@ -77,14 +75,14 @@ int main() {
             // check the line after
             int pos = infile.tellg();
 
-            string after;
+            std::string after;
 
-            if (!getline(infile, after)) {
+            if (!std::getline(infile, after)) {
                 num = 0;
                 continue;
             }
 
-            for (int j = max(left, 0); j < min(right, (int)after.size()); j++) {
+            for (int j = std::max(left, 0); j < std::min(right, (int)after.size()); j++) {
                 if (is_symbol(after[j])) {
                     sum += num;
                     done = true;
@@ -92,7 +90,7 @@ int main() {
                 }
             }
 
-            infile.seekg(pos, ios_base::beg);
+            infile.seekg(pos, std::ios_base::beg);
 
             // if nothing did anything reset num
             num = 0;
@@ -103,10 +101,10 @@ int main() {
 
     infile.close();
 
-    cout << "Sum of engine part numbers is " << sum << endl;
-    cout << "Writing result to ./output" << endl;
+    std::cout << "Sum of engine part numbers is " << sum << std::endl;
+    std::cout << "Writing result to ./output" << std::endl;
 
-    ofstream outfile("./output");
-    outfile << sum << endl;
+    std::ofstream outfile("./output");
+    outfile << sum << std::endl;
     outfile.close();
 }

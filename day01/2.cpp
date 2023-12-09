@@ -4,11 +4,10 @@
 #include <map>
 #include <string>
 
-using namespace std;
 
 int main() {
     unsigned int sum = 0;
-    string       line;
+    std::string       line;
 
     const std::map<std::string, int> value_map = {
         {"one",   1},
@@ -23,8 +22,8 @@ int main() {
     };
 
     // for every line calculate the calibration code and sum up
-    ifstream infile("./input");
-    while (getline(infile, line)) {
+    std::ifstream infile("./input");
+    while (std::getline(infile, line)) {
         bool already_first = false;
         int  last_num = 0;
 
@@ -62,10 +61,10 @@ int main() {
     infile.close();
 
     // print result
-    cout << "Sum of Calibration Codes is: " << sum << endl;
-    cout << "Writing result to ./output" << endl;
+    std::cout << "Sum of Calibration Codes is: " << sum << std::endl;
+    std::cout << "Writing result to ./output" << std::endl;
 
-    ofstream outfile("./output");
-    outfile << sum << endl;
+    std::ofstream outfile("./output");
+    outfile << sum << std::endl;
     outfile.close();
 }

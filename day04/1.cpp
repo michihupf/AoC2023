@@ -4,18 +4,17 @@
 #include <vector>
 #include <sstream>
 
-using namespace std;
 
 int main() {
-    ifstream infile("./input");
+    std::ifstream infile("./input");
 
     int sum = 0;
-    string line;
-    while (getline(infile, line)) {
-        vector<int> winning{};
-        vector<int> mine{};
+    std::string line;
+    while (std::getline(infile, line)) {
+        std::vector<int> winning{};
+        std::vector<int> mine{};
 
-        istringstream iss{line};
+        std::istringstream iss{line};
         // consume the irrelevant characters
         while (iss.peek() != ':')
             iss.get();
@@ -54,7 +53,7 @@ int main() {
         sort(winning.begin(), winning.end());
         sort(mine.begin(), mine.end());
 
-        int max_len = (int) min(winning.size(), mine.size());
+        int max_len = (int) std::min(winning.size(), mine.size());
         
         // depending on the shorter array we need to adjust the condition
         auto inbound = [&winning, &mine, max_len](int i, int j) {
@@ -82,10 +81,10 @@ int main() {
     
     infile.close();
 
-    cout << "The sum of card points is " << sum << endl;
-    cout << "Writing result to ./output" << endl;
+    std::cout << "The sum of card points is " << sum << std::endl;
+    std::cout << "Writing result to ./output" << std::endl;
 
-    ofstream outfile("./output");
-    outfile << sum << endl;
+    std::ofstream outfile("./output");
+    outfile << sum << std::endl;
     outfile.close();
 }

@@ -3,15 +3,13 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-
 int main() {
     unsigned int sum = 0;
-    string       line;
+    std::string       line;
 
     // for every line calculate the calibration code and sum up
-    ifstream infile("./input");
-    while (getline(infile, line)) {
+    std::ifstream infile("./input");
+    while (std::getline(infile, line)) {
         // search first digit
         for (int i = 0; i < (int)line.size(); i++) {
             if (std::isdigit(line[i])) {
@@ -31,10 +29,10 @@ int main() {
     infile.close();
 
     // print result
-    cout << "Sum of Calibration Codes is: " << sum << endl;
-    cout << "Writing result to ./output" << endl;
+    std::cout << "Sum of Calibration Codes is: " << sum << std::endl;
+    std::cout << "Writing result to ./output" << std::endl;
 
-    ofstream outfile("./output");
-    outfile << sum << endl;
+    std::ofstream outfile("./output");
+    outfile << sum << std::endl;
     outfile.close();
 }

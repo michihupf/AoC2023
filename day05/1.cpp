@@ -4,16 +4,15 @@
 #include <vector>
 #include <sstream>
 
-using namespace std;
 
 // processes a map found in `infile`
 // returns true if needs to be called again
-bool process_map(ifstream &infile, vector<unsigned int> &initial, vector<unsigned int> &mapped) {
-    string line;
+bool process_map(std::ifstream &infile, std::vector<unsigned int> &initial, std::vector<unsigned int> &mapped) {
+    std::string line;
     // no maps are identity
     mapped = initial;
 
-    while (getline(infile, line)) {
+    while (std::getline(infile, line)) {
         // when we reach \n we need to continue
         if (line == "")
             return true;
@@ -22,7 +21,7 @@ bool process_map(ifstream &infile, vector<unsigned int> &initial, vector<unsigne
         if (!isdigit(line[0]))
             continue;
 
-        istringstream iss(line);
+        std::istringstream iss(line);
         unsigned int dest, source, range;
         iss >> dest >> source >> range;
 
@@ -47,14 +46,14 @@ bool process_map(ifstream &infile, vector<unsigned int> &initial, vector<unsigne
 
 
 int main() {
-    ifstream infile("./input");
+    std::ifstream infile("./input");
 
     // line one are the seeds to be planted
-    string line;
-    getline(infile, line);
+    std::string line;
+    std::getline(infile, line);
 
-    vector<unsigned int> seeds;
-    istringstream iss(line);
+    std::vector<unsigned int> seeds;
+    std::istringstream iss(line);
     unsigned int tmp;
 
     // seeds: 
@@ -66,7 +65,7 @@ int main() {
         seeds.push_back(tmp);
     }
 
-    vector<unsigned int> mapped;
+    std::vector<unsigned int> mapped;
 
     // now we do the mappings for every seed
     while (process_map(infile, seeds, mapped)) {
@@ -81,10 +80,10 @@ int main() {
     
     infile.close();
 
-    cout << "Lowest location numbe number is " << min << endl;
-    cout << "Writing result to ./output" << endl;
+    std::cout << "Lowest location numbe number is " << min << std::endl;
+    std::cout << "Writing result to ./output" << std::endl;
 
-    ofstream outfile("./output");
-    outfile << min << endl;
+    std::ofstream outfile("./output");
+    outfile << min << std::endl;
     outfile.close();
 }

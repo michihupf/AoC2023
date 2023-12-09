@@ -4,8 +4,6 @@
 #include <sstream>
 #include <string>
 
-using namespace std;
-
 enum State { NONE, GAME_ID, NUMBER, COLOR };
 
 int main() {
@@ -15,10 +13,10 @@ int main() {
         {"red",   12}
     };
 
-    ifstream infile("./input");
+    std::ifstream infile("./input");
 
     // for every game check possibility
-    string token;
+    std::string token;
 
     // state describes the thing we want to read
     State        state      = NONE;
@@ -26,9 +24,9 @@ int main() {
     unsigned int game_id    = 0;
     unsigned int amount     = 0;
     bool         impossible = false;
-    while (getline(infile, token)) {
-        stringstream line(token);
-        while (getline(line, token, ' ')) {
+    while (std::getline(infile, token)) {
+        std::stringstream line(token);
+        while (std::getline(line, token, ' ')) {
             // if the string starts with 'G' we found "Game"
             // the next token will be the game_id
             if (state == NONE && token[0] == 'G') {
@@ -44,7 +42,7 @@ int main() {
                 continue;
             }
 
-            istringstream iss(token);
+            std::istringstream iss(token);
 
             switch (state) {
             case GAME_ID:
@@ -84,10 +82,9 @@ int main() {
     if (!impossible)
         sum += game_id;
 
-    cout << "The sum of the IDs is " << sum << endl;
-    cout << "Writing result to ./output" << endl;
-
-    ofstream outfile("./output");
-    outfile << sum << endl;
+    std::cout << "The sum of the IDs is " << sum << std::endl;
+    std::cout << "Writing result to ./output" << std::endl;
+    std::ofstream outfile("./output");
+    outfile << sum << std::endl;
     outfile.close();
 }

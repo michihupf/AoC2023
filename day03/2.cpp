@@ -3,11 +3,9 @@
 #include <ostream>
 #include <string>
 
-using std::cout, std::endl, std::ifstream, std::ofstream;
-using std::max, std::min, std::isdigit, std::string;
 
-int find_numbers_on_same_line(int symbol_index, const string &s, int &num1, int &num2) {
-    int left = max(symbol_index - 1, 0);
+int find_numbers_on_same_line(int symbol_index, const std::string &s, int &num1, int &num2) {
+    int left = std::max(symbol_index - 1, 0);
     int num  = 0;
     int exp  = 1;
     for (;left >= 0 && isdigit(s[left]); left--) {
@@ -23,7 +21,7 @@ int find_numbers_on_same_line(int symbol_index, const string &s, int &num1, int 
     }
 
     num       = 0;
-    int right = min(symbol_index + 1, (int)s.size());
+    int right = std::min(symbol_index + 1, (int)s.size());
     for (; right <= (int)s.size() && isdigit(s[right]); right++) {
         short digit  = s[right] - '0';
         num         *= 10;
@@ -40,7 +38,7 @@ int find_numbers_on_same_line(int symbol_index, const string &s, int &num1, int 
     return found_first + (num > 0);
 }
 
-int find_numbers_on_other_line(int symbol_index, const string &s, int &num1, int &num2) {
+int find_numbers_on_other_line(int symbol_index, const std::string &s, int &num1, int &num2) {
     if (isdigit(s[symbol_index])) {
         // when we have a number directly at the gear index we can just search to the left
         // until we hit the start and then parse the number
@@ -64,8 +62,8 @@ int find_numbers_on_other_line(int symbol_index, const string &s, int &num1, int
     // if there is no number at the gear index we might have 2 numbers at max
     //  123.456
     //  ...*...
-    int left  = max(symbol_index - 1, 0);
-    int right = min(symbol_index + 1, (int)s.size());
+    int left  = std::max(symbol_index - 1, 0);
+    int right = std::min(symbol_index + 1, (int)s.size());
 
     // search for the left number
     int num = 0;
@@ -105,12 +103,12 @@ int find_numbers_on_other_line(int symbol_index, const string &s, int &num1, int
 }
 
 int main() {
-    ifstream infile("./input");
+    std::ifstream infile("./input");
 
     int    sum = 0;
-    string line;
-    string before = "";
-    while (getline(infile, line)) {
+    std::string line;
+    std::string before = "";
+    while (std::getline(infile, line)) {
         for (unsigned int i = 0; i < line.size(); i++) {
             // loop until the first *
             char c = line[i];
@@ -129,8 +127,8 @@ int main() {
             count       += find_numbers_on_other_line(i, before, nums[2], nums[3]);
 
             int    pos = infile.tellg();
-            string after;
-            if (getline(infile, after)) {
+            std::string after;
+            if (std::getline(infile, after)) {
                 count += find_numbers_on_other_line(i, after, nums[4], nums[5]);
             }
 
@@ -159,10 +157,10 @@ int main() {
 
     infile.close();
 
-    cout << "Sum of engine part numbers is " << sum << endl;
-    cout << "Writing result to ./output" << endl;
+    std::cout << "Sum of engine part numbers is " << sum << std::endl;
+    std::cout << "Writing result to ./output" << std::endl;
 
-    ofstream outfile("./output");
-    outfile << sum << endl;
+    std::ofstream outfile("./output");
+    outfile << sum << std::endl;
     outfile.close();
 }

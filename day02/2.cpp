@@ -4,15 +4,13 @@
 #include <sstream>
 #include <string>
 
-using namespace std;
-
 enum State { NONE, GAME_ID, NUMBER, COLOR };
 
 int main() {
-    ifstream infile("./input");
+    std::ifstream infile("./input");
 
     // for every game check possibility
-    string token;
+    std::string token;
 
     // state describes the thing we want to read
     State        state  = NONE;
@@ -25,9 +23,9 @@ int main() {
         {"red",   0}
     };
 
-    while (getline(infile, token)) {
-        stringstream line(token);
-        while (getline(line, token, ' ')) {
+    while (std::getline(infile, token)) {
+        std::stringstream line(token);
+        while (std::getline(line, token, ' ')) {
             // if the string starts with 'G' we found "Game"
             // the next token will be the game_id
             if (state == NONE && token[0] == 'G') {
@@ -44,7 +42,7 @@ int main() {
                 continue;
             }
 
-            istringstream iss(token);
+            std::istringstream iss(token);
 
             switch (state) {
             case GAME_ID:
@@ -86,10 +84,10 @@ int main() {
 
     sum += mul;
 
-    cout << "The sum of the IDs is " << sum << endl;
-    cout << "Writing result to ./output" << endl;
+    std::cout << "The sum of the IDs is " << sum << std::endl;
+    std::cout << "Writing result to ./output" << std::endl;
 
-    ofstream outfile("./output");
-    outfile << sum << endl;
+    std::ofstream outfile("./output");
+    outfile << sum << std::endl;
     outfile.close();
 }

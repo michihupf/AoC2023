@@ -20,8 +20,8 @@ int main() {
 
     long long prod = 1;
     std::string times, dists;
-    getline(infile, times);
-    getline(infile, dists);
+    std::getline(infile, times);
+    std::getline(infile, dists);
 
     infile.close();
 
