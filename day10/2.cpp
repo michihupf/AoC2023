@@ -4,9 +4,10 @@
 #include <iostream>
 #include <utility>
 #include <vector>
+#include <map>
 
 struct Pipe {
-    std::size_t         x, y;
+    int         x, y;
     char                type;
     std::vector<Pipe *> neighbors;
     // whether or not we hit the pipe in search
@@ -16,8 +17,17 @@ struct Pipe {
 using Schematic = std::vector<std::vector<Pipe>>;
 
 const std::array<char, 4> DIRECTIONS = {'l', 'r', 'u', 'd'};
+std::map<char, std::vector<char>> directions_of = {
+    { '-', {'l', 'r'}},
+    { '|', {'u', 'd'}},
+    { 'S', std::vector<char>(DIRECTIONS.begin(), DIRECTIONS.end())},
+    { '7', {'l', 'd'}},
+    { 'F', {'d', 'r'}},
+    { 'J', {'l', 'u'}},
+    { 'L', {'u', 'r'}},
+};
 
-bool connected_to(char direction, std::size_t x, std::size_t y, const Schematic &schematic) {
+bool connected_to(char direction, int x, int y, const Schematic &schematic) {
     auto check_all = [](const Pipe &node, std::initializer_list<char> candidates) {
         return std::any_of(candidates.begin(), candidates.end(),
                            [&node](char c) { return c == node.type; });
@@ -29,7 +39,7 @@ bool connected_to(char direction, std::size_t x, std::size_t y, const Schematic 
             return false;
         return check_all(schematic[y][x - 1], {'-', 'F', 'L', 'S'});
     case 'r':
-        if (x >= schematic[0].size() - 1)
+        if (x >= (int)schematic[0].size() - 1)
             return false;
         return check_all(schematic[y][x + 1], {'-', '7', 'J', 'S'});
     case 'u':
@@ -37,14 +47,14 @@ bool connected_to(char direction, std::size_t x, std::size_t y, const Schematic 
             return false;
         return check_all(schematic[y - 1][x], {'|', '7', 'F', 'S'});
     case 'd':
-        if (y >= schematic.size() - 1)
+        if (y >= (int)schematic.size() - 1)
             return false;
         return check_all(schematic[y + 1][x], {'|', 'J', 'L', 'S'});
     }
     return false;
 }
 
-Pipe *get_neighbor(char direction, std::size_t x, std::size_t y, Schematic &schematic) {
+Pipe *get_neighbor(char direction, int x, int y, Schematic &schematic) {
     if (!connected_to(direction, x, y, schematic))
         return nullptr;
 
@@ -96,11 +106,11 @@ void dfs(Schematic &schematic, Pipe *start, std::vector<std::pair<Pipe *, Pipe *
 }
 
 int main() {
-    std::ifstream infile("./example");
+    std::ifstream infile("./input");
 
     // read the schematic and parse pipes
     char        c;
-    std::size_t x = 0, y = 0;
+    int x = 0, y = 0;
     Pipe       *start = nullptr;
     Schematic   schematic;
     schematic.push_back(std::vector<Pipe>());
@@ -118,8 +128,8 @@ int main() {
     // remove extra line at end
     schematic.erase(schematic.rbegin().base());
 
-    for (std::size_t y = 0; y < schematic.size(); y++) {
-        for (std::size_t x = 0; x < schematic[0].size(); x++) {
+    for (int y = 0; y < (int)schematic.size(); y++) {
+        for (int x = 0; x < (int)schematic[0].size(); x++) {
             Pipe *pipe = &schematic[y][x];
 
             // skip ground
@@ -127,7 +137,7 @@ int main() {
                 continue;
 
             // set neighbors
-            for (char direction : DIRECTIONS) {
+            for (char direction : directions_of[pipe->type]) {
                 Pipe *neigh = get_neighbor(direction, x, y, schematic);
 
                 if (neigh) {
@@ -150,8 +160,6 @@ int main() {
     std::vector<std::pair<Pipe *, Pipe *>> lines;
     dfs(schematic, start, lines);
 
-    std::cout << lines.size() << std::endl;
-
     // every pipe has an x and y coordinate. We can check whether a 
     // point is inside or outside of a polygon by using the 
     // ray casting algorithm. The idea is to cast a ray from the 
@@ -159,12 +167,12 @@ int main() {
     
     // There are still problems with the case when a point is directly 
     // under a vertical line. Inside and outside is ambigous when under 
-    // a vertical line. Need more time to figure out the details but the 
-    // idea still stands.
+    // a vertical line. We will shift every lattice point by 0.5 to the right 
+    // and we avoid this issue entirely :D
     
     int inside_count = 0;
-    for (int y = 0; y < schematic.size(); y++) {
-        for (int x = 0; x < schematic[0].size(); x++) {
+    for (int y = 0; y < (int)schematic.size(); y++) {
+        for (int x = 0; x < (int)schematic[0].size(); x++) {
 
             // now do an intersection test with every edge of our polygon
             // we need to handle the edge case where a tile is directly below a 
@@ -174,10 +182,9 @@ int main() {
                 int x_min = std::min(c1->x, c2->x);
                 int x_max = std::max(c1->x, c2->x);
                 int y_min = std::min(c1->y, c2->y);
-                int y_max = std::max(c1->y, c2->y);
 
                 // when the tile is part of the line we need to skip computation
-                if (x >= x_min && y >= y_min && x <= x_max && y <= y_max) {
+                if (schematic[y][x].hit) {
                     intersection_count = 0;
                     break;
                 }
@@ -186,15 +193,13 @@ int main() {
                 if (x_max == x_min)
                     continue;
 
-                if (y > y_min && x <= x_max && x >= x_min) {
+                if (y > y_min && x + 0.5 < x_max && x + 0.5 > x_min) {
                     intersection_count++;
                 }
             }
 
             // an odd intersection count means inside
             inside_count += intersection_count % 2;
-            if (intersection_count % 2)
-                    std::cout << x << "," << y << " intersects " << intersection_count << std::endl;
         }
     }
 

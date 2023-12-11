@@ -8,7 +8,7 @@ Having said that those are just my initial solutions and I did not find the time
 the code when I find the time but I also might not - we shall see.
 
 #### Completeness
-I am still working on some of my solutions (day05 part 2 and day10 part 2). I will solve them still but I do not have the
+I am still working on some of my solutions (day05 part). I will solve them still but I do not have the
 time to look into it right now.
 
 ## File Structure
