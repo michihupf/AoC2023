@@ -7,6 +7,10 @@ my approach to the problems. The code can certainly be refined, optimzied and im
 Having said that those are just my initial solutions and I did not find the time to refactor (yet). I might refactor
 the code when I find the time but I also might not - we shall see.
 
+#### Completeness
+I am still working on some of my solutions (day05 part 2 and day10 part 2). I will solve them still but I do not have the
+time to look into it right now.
+
 ## File Structure
 There a 25 directories named `day01` to `day25` which contain the code to solve the problems of that
 specific day. In those directories two `cpp`-files can be found: `1.cpp` and `2.cpp` corresponding
