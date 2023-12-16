@@ -9,7 +9,8 @@ the code when I find the time but I also might not - we shall see.
 
 #### Completeness
 I am still working on some of my solutions (day05 part). I will solve them still but I do not have the
-time to look into it right now.
+time to look into it right now. I did not have time to do day 12 yet either so I will do that when I find the time -  
+I looked at the problem and it doesn't seem too hard.
 
 ## File Structure
 There a 25 directories named `day01` to `day25` which contain the code to solve the problems of that
