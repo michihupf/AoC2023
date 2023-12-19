@@ -8,9 +8,12 @@ Having said that those are just my initial solutions and I did not find the time
 the code when I find the time but I also might not - we shall see.
 
 #### Completeness
-I am still working on some of my solutions (day05 part). I will solve them still but I do not have the
-time to look into it right now. I did not have time to do day 12 yet either so I will do that when I find the time -  
-I looked at the problem and it doesn't seem too hard.
+I am still working on some of my solutions. I will solve them still but I do not have the
+time to look into it right now. I did not have time to do some entire days (e.g 12 and 17) yet either so I will do that
+when I find the time - I looked at the problems and they doesn't seem too hard, some thinking will probably be required
+though. I hope to be finished by 01.01.2024 but I can't guarantee it. Having said that there are plenty of other C++
+solution repos here on GitHub if you really need a solution fast although some are quite cryptic at a 
+first glance - see [Bogdanp/awesome-advent-of-code](https://github.com/Bogdanp/awesome-advent-of-code?tab=readme-ov-file#c-2).
 
 ## File Structure
 There a 25 directories named `day01` to `day25` which contain the code to solve the problems of that
